@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login_ui/controllers/user.dart';
 import 'package:flutter_login_ui/pages/forgot_password_verification_page.dart';
-import 'package:flutter_login_ui/pages/home_page.dart';
-import 'package:flutter_login_ui/pages/lottery.dart';
+import 'package:flutter_login_ui/pages/lottery_page.dart';
 import 'package:flutter_login_ui/pages/order_page.dart';
 import 'package:flutter_login_ui/pages/profile_page.dart';
 import 'package:flutter_login_ui/pages/tickets_page.dart';
-import 'package:flutter_login_ui/pages/ussd_page.dart';
 import 'package:flutter_login_ui/pages/winner_page.dart';
 import 'package:flutter_login_ui/services/shared_service.dart';
+import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
+  final userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     Color _draFont = Color(0XFFfcd804);
+
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
@@ -54,110 +56,6 @@ class CustomDrawer extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-            // ListTile(
-            //   leading: Icon(
-            //     Icons.screen_lock_landscape_rounded,
-            //     size: _drawerIconSize,
-            //     color: Theme.of(context).accentColor,
-            //   ),
-            //   title: Text(
-            //     'Splash Screen',
-            //     style: TextStyle(
-            //         fontSize: 17, color: Theme.of(context).accentColor),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) =>
-            //                 SplashScreen(title: "Splash Screen")));
-            //   },
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.login_rounded,
-            //       size: _drawerIconSize, color: Theme.of(context).accentColor),
-            //   title: Text(
-            //     'Login Page',
-            //     style: TextStyle(
-            //         fontSize: _drawerFontSize,
-            //         color: Theme.of(context).accentColor),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => LoginPage()),
-            //     );
-            //   },
-            // ),
-            // Divider(
-            //   color: Theme.of(context).primaryColor,
-            //   height: 1,
-            // ),
-            // ListTile(
-            //   leading: Icon(Icons.person_add_alt_1,
-            //       size: _drawerIconSize, color: Theme.of(context).accentColor),
-            //   title: Text(
-            //     'Registration Page',
-            //     style: TextStyle(
-            //         fontSize: _drawerFontSize,
-            //         color: Theme.of(context).accentColor),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => RegistrationPage()),
-            //     );
-            //   },
-            // ),
-            // Divider(
-            //   color: Theme.of(context).primaryColor,
-            //   height: 1,
-            // ),
-            // ListTile(
-            //   leading: Icon(
-            //     Icons.password_rounded,
-            //     size: _drawerIconSize,
-            //     color: Theme.of(context).accentColor,
-            //   ),
-            //   title: Text(
-            //     'Forgot Password Page',
-            //     style: TextStyle(
-            //         fontSize: _drawerFontSize,
-            //         color: Theme.of(context).accentColor),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-            //     );
-            //   },
-            // ),
-            // Divider(
-            //   color: Theme.of(context).primaryColor,
-            //   height: 1,
-            // ),
-            ListTile(
-              leading: Icon(
-                Icons.home,
-                size: 24,
-                color: Theme.of(context).accentColor,
-              ),
-              title: Text(
-                'Home',
-                style: TextStyle(
-                    fontSize: 17, color: Theme.of(context).accentColor),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-            ),
-            Divider(
-              color: Theme.of(context).primaryColor,
-              height: 1,
             ),
             ListTile(
               leading: Icon(
@@ -262,28 +160,6 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfilePage()),
-                );
-              },
-            ),
-            Divider(
-              color: Theme.of(context).primaryColor,
-              height: 1,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.list_alt,
-                size: 24,
-                color: Theme.of(context).accentColor,
-              ),
-              title: Text(
-                'Ussd',
-                style: TextStyle(
-                    fontSize: 17, color: Theme.of(context).accentColor),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UssdPage()),
                 );
               },
             ),

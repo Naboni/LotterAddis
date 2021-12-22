@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login_ui/controllers/cart.dart';
 import 'package:flutter_login_ui/controllers/ticket.dart';
 import 'package:flutter_login_ui/controllers/user.dart';
 import 'package:flutter_login_ui/models/models.dart';
@@ -14,8 +13,7 @@ class TicketsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Ticket> tickets = ticketController.ticketList;
-    //List lotNumbers = json.decode(lotteries[0].lotteryNumbers);
-    bool clicked = false;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(

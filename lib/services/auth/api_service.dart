@@ -130,6 +130,46 @@ class ApiService {
     }
   }
 
+  static Future<List<User>?> getUsers() async {
+    var loginDetails = await SharedService.loginDetails();
+
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': '${loginDetails!.token}'
+    };
+
+    var url = Uri.http(Config.apiUrl, Config.userProfile);
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    var jsonData = json.decode(response.body);
+
+    List<User> allUsers = [];
+
+    for (var jdata in jsonData) {
+      User users = User(
+          id: jdata["id"],
+          firstName: jdata["firstName"],
+          lastName: jdata["lastName"],
+          email: jdata["email"],
+          phone: jdata["phone"],
+          gender: jdata["gender"],
+          age: jdata["age"],
+          role: jdata["role"],
+          lottery: jdata["lottery"],
+          ticket: jdata["ticket"]);
+      allUsers.add(users);
+    }
+
+    if (response.statusCode == 200) {
+      return allUsers;
+    } else {
+      return null;
+    }
+  }
+
   static Future<List<Ticket>?> getAllTickets() async {
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
 

@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter_login_ui/models/models.dart';
-import 'package:flutter_login_ui/models/ticket/ticket_request_model.dart';
 import 'package:flutter_login_ui/services/auth/api_service.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +41,8 @@ class TicketController extends GetxController {
   void buyTicket(int ticketNumber) async {
     try {
       var ticket = await ApiService.buyTicket(ticketNumber);
+      lotteryList.add(ticket!);
+      ticketList.add(ticket);
     } catch (e) {
       print(e);
     }

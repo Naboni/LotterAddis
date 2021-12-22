@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login_ui/pages/lottery_page.dart';
+import 'package:flutter_login_ui/pages/widgets/category_card.dart';
 import 'package:flutter_login_ui/pages/widgets/drawer.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         "id": 1,
         "name": "Thomas Guta",
         "money": "305,000",
-        "profile": "assets/images/profile.jpeg"
+        "profile": "assets/images/profile6.gif"
       },
       {
         "id": 2,
@@ -30,19 +33,19 @@ class _HomePageState extends State<HomePage> {
         "id": 3,
         "name": "Ruha Glad",
         "money": "15,500",
-        "profile": "assets/images/profile.jpeg"
+        "profile": "assets/images/profile4.jpg"
       },
       {
         "id": 4,
         "name": "Xelc Clex",
         "money": "225,000",
-        "profile": "assets/images/profile.jpeg"
+        "profile": "assets/images/profile5.jfif"
       },
       {
         "id": 5,
         "name": "Alex Sima",
         "money": "35,000",
-        "profile": "assets/images/profile.jpeg"
+        "profile": "assets/images/profile7.jpg"
       },
     ];
     return Scaffold(
@@ -172,11 +175,11 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Container(
                       margin: EdgeInsets.all(8),
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       height: 50,
                       child: ElevatedButton(
                         child: Text(
-                          "Play",
+                          "Start Playing",
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
@@ -186,7 +189,13 @@ class _HomePageState extends State<HomePage> {
                             primary: Color(0XFF303996),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LotteryPage()),
+                          );
+                        },
                       ),
                     ),
                     Container(
@@ -211,17 +220,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Previous winners",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0XFF303996)),
-                      ),
+                    Text(
+                      "Previous winners",
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0XFF303996)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      height: 3,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(20)),
                     ),
                     GridView.builder(
                       physics: NeverScrollableScrollPhysics(),
@@ -232,14 +246,13 @@ class _HomePageState extends State<HomePage> {
                       itemCount: users.length,
                       itemBuilder: (BuildContext ctx, index) {
                         return Container(
+                          padding: EdgeInsets.symmetric(vertical: 5),
                           child: Column(
                             children: [
                               Container(
                                 width: 80.0,
                                 height: 80.0,
                                 decoration: new BoxDecoration(
-                                  border:
-                                      Border.all(width: 1, color: Colors.black),
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
                                     fit: BoxFit.fill,

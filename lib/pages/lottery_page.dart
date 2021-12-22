@@ -5,9 +5,7 @@ import 'package:flutter_login_ui/controllers/cart.dart';
 import 'package:flutter_login_ui/controllers/lottery.dart';
 import 'package:flutter_login_ui/models/models.dart';
 import 'package:flutter_login_ui/pages/cart_page.dart';
-import 'package:flutter_login_ui/services/auth/api_service.dart';
 import 'package:get/get.dart';
-import 'package:http/retry.dart';
 
 class LotteryPage extends StatelessWidget {
   final lotteryController = Get.put(LotteryController());
@@ -17,8 +15,7 @@ class LotteryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Lottery> lotteries = lotteryController.lotteryList;
-    //List lotNumbers = json.decode(lotteries[0].lotteryNumbers);
-    bool clicked = false;
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset('assets/images/logo.jpg'),

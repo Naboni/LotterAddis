@@ -23,56 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('An Error Occurred!'),
-        content: Text(message),
-        actions: <Widget>[
-          ElevatedButton(
-            child: Text('Okay'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  // Future<void> _submit() async {
-  //   if (!_formKey.currentState!.validate()) {
-  //     // Invalid!
-  //     return;
-  //   }
-  //   _formKey.currentState!.save();
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   try {
-  //     await Provider.of<Auth>(context, listen: false).login(
-  //       _authData['email']!,
-  //       _authData['password']!,
-  //     );
-  //     print("llllllllllllllllllllllllllllllll");
-  //     Navigator.pushReplacement(
-  //         context, MaterialPageRoute(builder: (context) => ProfilePage()));
-  //   } on HttpException catch (error) {
-  //     final errorMessage = error.message;
-  //     _showErrorDialog(errorMessage);
-  //   } catch (error) {
-  //     const errorMessage =
-  //         'Could not authenticate you. Please try again later.';
-  //     _showErrorDialog(errorMessage);
-  //   }
-
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  // }
-
-  //snippet
   GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
   String? email;
   String? password;
@@ -176,16 +126,23 @@ class _LoginPageState extends State<LoginPage> {
                                 child: ElevatedButton(
                                   style: ThemeHelper().buttonStyle(),
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(40, 10, 40, 10),
-                                    child: Text(
-                                      'Sign In'.toUpperCase(),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                  ),
+                                      padding:
+                                          EdgeInsets.fromLTRB(40, 10, 40, 10),
+                                      child: !isApiCallProcess
+                                          ? Text(
+                                              'Sign In'.toUpperCase(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            )
+                                          : SizedBox(
+                                              height: 25,
+                                              width: 25,
+                                              child: CircularProgressIndicator(
+                                                color: Colors.white,
+                                              ),
+                                            )),
                                   onPressed: () {
                                     //After successful login we will redirect to profile page. Let's create profile page now
                                     //_submit();
@@ -247,6 +204,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('An Error Occurred!'),
+        content: Text(message),
+        actions: <Widget>[
+          ElevatedButton(
+            child: Text('Okay'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
       ),
     );
   }
