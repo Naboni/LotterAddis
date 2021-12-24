@@ -37,33 +37,46 @@ class NotificationService {
   Future<void> showNotification(
       int id, String title, String body, int seconds) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.now(tz.local).add(Duration(seconds: seconds)),
-      const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'main_channel',
-          'Main Channel',
-          channelDescription: 'Main channel notifications',
-          importance: Importance.max,
-          priority: Priority.max,
-          icon: '@drawable/ic_stat_attach_money',
+        id,
+        title,
+        body,
+        _scheduleDaily(Time(8)),
+        //tz.TZDateTime.now(tz.local).add(
+        //Duration(seconds: seconds),
+        //),
+        //tz.TZDateTime.from(scheduledDate, tz.local),
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'main_channel',
+            'Main Channel',
+            channelDescription: 'Main channel notifications',
+            importance: Importance.max,
+            priority: Priority.max,
+            icon: '@drawable/ic_stat_attach_money',
+          ),
+          iOS: IOSNotificationDetails(
+            sound: 'default.wav',
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+          ),
         ),
-        iOS: IOSNotificationDetails(
-          sound: 'default.wav',
-          presentAlert: true,
-          presentBadge: true,
-          presentSound: true,
-        ),
-      ),
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      androidAllowWhileIdle: true,
-    );
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+        matchDateTimeComponents: DateTimeComponents.time);
   }
 
   Future<void> cancelAllNotifications() async {
     await flutterLocalNotificationsPlugin.cancelAll();
+  }
+
+  static tz.TZDateTime _scheduleDaily(Time time) {
+    final now = tz.TZDateTime.now(tz.local);
+    final scheduleDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
+        time.hour, time.minute, time.second);
+    return scheduleDate.isBefore(now)
+        ? scheduleDate.add(Duration(days: 1))
+        : scheduleDate;
   }
 }

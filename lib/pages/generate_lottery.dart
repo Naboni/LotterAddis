@@ -147,8 +147,12 @@ class _GenerateLotteryPageState extends State<GenerateLotteryPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  NotificationService().showNotification(1, "LotterAddis",
-                      "Try your luck. Tody might be your lucky day.", 10);
+                  NotificationService().showNotification(
+                    1,
+                    "LotterAddis",
+                    "Try your luck. Tody might be your lucky day.",
+                    1,
+                  );
                 },
                 child: Container(
                   height: 40,

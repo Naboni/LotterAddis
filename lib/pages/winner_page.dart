@@ -5,6 +5,7 @@ import 'package:flutter_login_ui/controllers/cart.dart';
 import 'package:flutter_login_ui/controllers/ticket.dart';
 import 'package:flutter_login_ui/controllers/user.dart';
 import 'package:flutter_login_ui/models/models.dart';
+import 'package:flutter_login_ui/services/notification_service.dart';
 import 'package:get/get.dart';
 
 class WinnerPage extends StatelessWidget {
@@ -28,13 +29,15 @@ class WinnerPage extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.white),
         flexibleSpace: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
                 Theme.of(context).primaryColor,
                 Theme.of(context).accentColor,
-              ])),
+              ],
+            ),
+          ),
         ),
         actions: [
           Container(
@@ -166,7 +169,12 @@ void _showDialog(BuildContext context, TicketController ticketController) {
       .ticketList[_random.nextInt(ticketController.ticketList.length)];
   ticketController.updateStatus("SUCCESS", winner.id.toString());
   print("${winner.status}, ${winner.id}");
-
+  NotificationService().showNotification(
+    1,
+    "LotterAddis",
+    "Congratulations. You have Won 100 Birr.",
+    1,
+  );
   //for (var i = 0; i < ticketController.ticketList.length; i++) {
   //ticketController.updateStatus(
   //  "FAILED", ticketController.ticketList[i].toString());
