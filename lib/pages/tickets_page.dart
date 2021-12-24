@@ -83,31 +83,126 @@ class TicketsPage extends StatelessWidget {
                       ),
                     );
                   else {
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      height: MediaQuery.of(context).size.height * 0.9,
-                      child: ListView.builder(
-                          itemCount: tickets.length,
-                          itemBuilder: (BuildContext ctx, int index) {
-                            return ListTile(
-                              leading: CircleAvatar(
-                                  backgroundColor: Colors.amber,
-                                  child: Icon(
-                                    Icons.person,
-                                    color: Theme.of(context).primaryColor,
-                                  )
-                                  //Text("${tickets[index].userId.toString()}"),
-                                  ),
-                              title: Text(
-                                  "Ticket No. ${tickets[index].ticketNumber.toString()}"),
-                              subtitle: Text(
-                                  "Ticket id: ${tickets[index].id.toString()}"),
-                              trailing: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () {},
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 30),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.46,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Total tickets",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.receipt,
+                                          color: Colors.amber,
+                                        ),
+                                        Text(
+                                          tickets.length.toString(),
+                                          style: TextStyle(
+                                            color: Colors.amber,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            );
-                          }),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.46,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Total money",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w300,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.monetization_on_outlined,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        Text(
+                                          (tickets.length * 5).toString(),
+                                          style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          height: MediaQuery.of(context).size.height * 0.9,
+                          child: ListView.builder(
+                              itemCount: tickets.length,
+                              itemBuilder: (BuildContext ctx, int index) {
+                                return ListTile(
+                                  leading: CircleAvatar(
+                                      backgroundColor: Colors.amber,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Theme.of(context).primaryColor,
+                                      )
+                                      //Text("${tickets[index].userId.toString()}"),
+                                      ),
+                                  title: Text(
+                                      "Ticket No. ${tickets[index].ticketNumber.toString()}"),
+                                  subtitle: Text(
+                                      "Ticket id: ${tickets[index].id.toString()}"),
+                                  trailing: Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.amberAccent,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text("${tickets[index].status}"),
+                                  ),
+                                );
+                              }),
+                        ),
+                      ],
                     );
                   }
                 },

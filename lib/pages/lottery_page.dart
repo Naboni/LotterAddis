@@ -97,55 +97,68 @@ class LotteryPage extends StatelessWidget {
                       ),
                     );
                   else {
-                    List lotNumbers = json.decode(lotteries[0].lotteryNumbers);
                     return Container(
                       padding: EdgeInsets.all(10),
                       height: MediaQuery.of(context).size.height * 0.7,
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemCount: lotNumbers.length,
-                        //itemCount: lotteries.length,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return GetBuilder<CartController>(
-                            init: CartController(),
-                            builder: (context) {
-                              return new GestureDetector(
-                                onTap: () {
-                                  cartController.addItem(lotNumbers[index]);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 10),
-                                  padding: EdgeInsets.all(15),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Color(0XFFfcd804), width: 2),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        //"l",
-                                        "${lotNumbers[index]}",
-                                        style: TextStyle(
-                                          color: Color(0XFF303996),
-                                          fontSize: 24,
+                          itemCount: lotteries.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            var lottery =
+                                json.decode(lotteries[index].lotteryNumbers);
+                            print(lottery);
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: BouncingScrollPhysics(),
+                              itemCount: lottery.length,
+                              //itemCount: lotteries.length,
+                              itemBuilder: (BuildContext ctex, int i) {
+                                return GetBuilder<CartController>(
+                                  init: CartController(),
+                                  builder: (context) {
+                                    return new GestureDetector(
+                                      onTap: () {
+                                        cartController.addItem(lottery[i]);
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 40, vertical: 10),
+                                        padding: EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0XFFfcd804),
+                                              width: 2),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              //"l",
+                                              "${lottery[i]}",
+                                              style: TextStyle(
+                                                color: Color(0XFF303996),
+                                                fontSize: 24,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.shopping_cart,
+                                              color: Color(0XFF303996),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.shopping_cart,
-                                        color: Color(0XFF303996),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          }),
                     );
+                    //lotteries.map((lottery) => LotteryList(
+                    //  lotNumbers: json.decode(lottery.lotteryNumbers), cartController: cartController)
+                    // ).toList();
+                    // print(lotNumbers);
+                    // List lotNumbers = json.decode(lotteries[1].lotteryNumbers);
                   }
                 },
               ),

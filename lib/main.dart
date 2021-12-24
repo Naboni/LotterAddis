@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login_ui/pages/home_page.dart';
 import 'package:flutter_login_ui/pages/login_page.dart';
 import 'package:flutter_login_ui/pages/registration_page.dart';
+import 'package:flutter_login_ui/services/notification_service.dart';
 import 'package:flutter_login_ui/services/shared_service.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -15,7 +16,7 @@ Widget _defaultHome = SplashScreen(
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  NotificationService().initNotification();
   // Get result of the login function.
   bool _result = await SharedService.isLoggedIn();
   if (_result) {

@@ -26,6 +26,19 @@ class LotteryController extends GetxController {
     update();
   }
 
+  void generateLotteries() async {
+    try {
+      isLoading(true);
+      var lotteries = await ApiService.generateLottery();
+      if (lotteries != null) {
+        lotteryList.add(lotteries);
+      }
+    } finally {
+      isLoading(false);
+    }
+    update();
+  }
+
   void updateLottery(int lotteryId, String lotteryNumbers) async {
     try {
       isLoading(true);

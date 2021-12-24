@@ -106,10 +106,6 @@ class WinnerPage extends StatelessWidget {
                                   "Ticket No. ${tickets[index].ticketNumber.toString()}"),
                               subtitle: Text(
                                   "Ticket id: ${tickets[index].id.toString()}"),
-                              trailing: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () {},
-                              ),
                             );
                           }),
                     );
@@ -168,7 +164,14 @@ void _showDialog(BuildContext context, TicketController ticketController) {
   final _random = new Random();
   var winner = ticketController
       .ticketList[_random.nextInt(ticketController.ticketList.length)];
-  ticketController.deleteAllTickets();
+  ticketController.updateStatus("SUCCESS", winner.id.toString());
+  print("${winner.status}, ${winner.id}");
+
+  //for (var i = 0; i < ticketController.ticketList.length; i++) {
+  //ticketController.updateStatus(
+  //  "FAILED", ticketController.ticketList[i].toString());
+  //}
+  //ticketController.deleteAllTickets();
   // flutter defined function
   showDialog(
     context: context,

@@ -20,10 +20,16 @@ class TicketController extends GetxController {
       var tickets = await ApiService.getAllTickets();
       if (tickets != null) {
         ticketList.value = tickets;
+
+        //ticketList.assignAll(tickets);
       }
     } finally {
       isLoading(false);
     }
+  }
+
+  List<Ticket> findProductById(int id) {
+    return ticketList.where((i) => i.userId == id).toList();
   }
 
   void fetchTickets() async {
@@ -32,6 +38,8 @@ class TicketController extends GetxController {
       var tickets = await ApiService.getTicketById();
       if (tickets != null) {
         lotteryList.value = tickets;
+
+        //lotteryList.assignAll(tickets);
       }
     } finally {
       isLoading(false);
@@ -48,9 +56,17 @@ class TicketController extends GetxController {
     }
   }
 
+  void updateStatus(String status, String id) async {
+    try {
+      await ApiService.updateTicket(status, id);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void deleteAllTickets() async {
     try {
-      ApiService.deleteTickets();
+      await ApiService.deleteTickets();
     } catch (e) {
       print(e);
     }

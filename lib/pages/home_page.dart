@@ -4,6 +4,7 @@ import 'package:flutter_login_ui/pages/lottery_page.dart';
 import 'package:flutter_login_ui/pages/widgets/category_card.dart';
 import 'package:flutter_login_ui/pages/widgets/drawer.dart';
 import 'package:get/get.dart';
+import 'package:ussd_advanced/ussd_advanced.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -189,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                             primary: Color(0XFF303996),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30))),
-                        onPressed: () {
+                        onPressed: () async {
                           Navigator.push(
                             context,
                             MaterialPageRoute(

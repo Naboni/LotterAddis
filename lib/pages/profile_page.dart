@@ -188,7 +188,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     leading: Icon(Icons.person),
                                                     title: Text("About Me"),
                                                     subtitle: Text(
-                                                        "This is a about me link and you can kmow about me in this section."),
+                                                        "${user.id} This is a about me link and you can kmow about me in this section."),
                                                   ),
                                                 ],
                                               ),

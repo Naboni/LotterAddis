@@ -187,6 +187,7 @@ class ApiService {
       Ticket ticket = Ticket(
         id: jdata["id"],
         ticketNumber: jdata["ticketNumber"],
+        status: jdata["status"],
         userId: jdata["userId"],
       );
       allTickets.add(ticket);
@@ -203,9 +204,8 @@ class ApiService {
     var loginDetails = await SharedService.loginDetails();
 
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
-
-    var url = Uri.http(
-        Config.apiUrl, Config.ticketApi + "${loginDetails!.id.toString()}");
+    String userId = Config.ticketApi + loginDetails!.id.toString();
+    var url = Uri.http(Config.apiUrl, userId);
     var response = await client.get(
       url,
       headers: requestHeaders,
@@ -219,6 +219,7 @@ class ApiService {
       Ticket ticket = Ticket(
         id: jdata["id"],
         ticketNumber: jdata["ticketNumber"],
+        status: jdata["status"],
         userId: jdata["userId"],
       );
 
@@ -250,6 +251,21 @@ class ApiService {
     return ticketModel(response.body);
   }
 
+  static Future<Lottery?> generateLottery() async {
+    var loginDetails = await SharedService.loginDetails();
+
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    var url = Uri.http(Config.apiUrl, Config.lotteryApi);
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(<String, int>{"userId": loginDetails!.id}),
+    );
+
+    return lotteryModel(response.body);
+  }
+
   static Future<void> deleteTickets() async {
     Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
 
@@ -279,6 +295,26 @@ class ApiService {
 
     if (response.statusCode == 200) {
       return lotteryModel(response.body);
+    } else {
+      return null;
+    }
+  }
+
+  static Future<Ticket?> updateTicket(String status, String id) async {
+    Map<String, String> requestHeaders = {'Content-Type': 'application/json'};
+
+    var url = Uri.http(Config.apiUrl, Config.ticketApi + id);
+
+    var response = await client.patch(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(<String, String>{
+        "status": status,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return ticketModel(response.body);
     } else {
       return null;
     }

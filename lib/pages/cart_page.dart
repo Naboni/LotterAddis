@@ -70,46 +70,62 @@ class CartPage extends StatelessWidget {
                                     init: LotteryController(),
                                     builder: (context) {
                                       return TextButton(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           //orderController.addOrder(
                                           //  cartController.items.values
                                           //    .toList(),
                                           //cartController.totalAmount);
-                                          UssdAdvanced.sendUssd(
-                                              code: "*806*0942230327*1#",
-                                              subscriptionId: 1);
-                                          for (var i = 0;
-                                              i < cartController.items.length;
-                                              i++) {
-                                            ticketController.buyTicket(
-                                                cartController.items.values
-                                                    .toList()[i]
-                                                    .ticketNum);
-                                            // remove the tickets user selected from the lotteries list
-                                            lotteryNumbers.remove(cartController
-                                                .items.values
-                                                .toList()[i]
-                                                .ticketNum);
-                                            // update the lottery list after the tickets are removed from the list
-                                            lotteryController.updateLottery(
-                                                lotterylist[0].id,
-                                                json.encode(lotteryNumbers));
-                                          }
-                                          cartController.clear();
+                                          String? _res = await UssdAdvanced
+                                              .sendAdvancedUssd(code: "*804#");
+                                          const String start = "is ";
+                                          const String end = " Birr";
+                                          var startIndex = _res!.indexOf(start);
+                                          var endIndex = _res.indexOf(
+                                              end, startIndex + start.length);
 
-                                          Get.snackbar("Order",
-                                              "Click 1 to confirm buying your ticket.",
-                                              backgroundColor:
-                                                  Color(0XFFfcd804),
-                                              shouldIconPulse: true,
-                                              // titleText: Text(
-                                              //   "Order Successful",
-                                              //   style: TextStyle(
-                                              //     color: Color(0XFF303996),
-                                              //   ),
-                                              // ),
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM);
+                                          var balance = _res.substring(
+                                              startIndex + start.length,
+                                              endIndex);
+                                          var balanceNo = double.parse(balance);
+                                          if (balanceNo <
+                                              cartController.totalAmount) {
+                                            Get.snackbar("Order unsuccessful.",
+                                                "You don't have enough balance.",
+                                                backgroundColor: Colors.red,
+                                                shouldIconPulse: true,
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM);
+                                          } else {
+                                            UssdAdvanced.sendUssd(
+                                                code: "*806*0942230327*1#",
+                                                subscriptionId: 1);
+                                            for (var i = 0;
+                                                i < cartController.items.length;
+                                                i++) {
+                                              ticketController.buyTicket(
+                                                  cartController.items.values
+                                                      .toList()[i]
+                                                      .ticketNum);
+                                              // remove the tickets user selected from the lotteries list
+                                              lotteryNumbers.remove(
+                                                  cartController.items.values
+                                                      .toList()[i]
+                                                      .ticketNum);
+                                              // update the lottery list after the tickets are removed from the list
+                                              lotteryController.updateLottery(
+                                                  lotterylist[0].id,
+                                                  json.encode(lotteryNumbers));
+                                            }
+                                            cartController.clear();
+
+                                            Get.snackbar("Order",
+                                                "Click 1 to confirm buying your ticket.",
+                                                backgroundColor:
+                                                    Color(0XFFfcd804),
+                                                shouldIconPulse: true,
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM);
+                                          }
                                         },
                                         child: Text(
                                           'ORDER NOW',

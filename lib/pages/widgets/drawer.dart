@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login_ui/controllers/user.dart';
 import 'package:flutter_login_ui/pages/forgot_password_verification_page.dart';
+import 'package:flutter_login_ui/pages/generate_lottery.dart';
 import 'package:flutter_login_ui/pages/lottery_page.dart';
 import 'package:flutter_login_ui/pages/order_page.dart';
 import 'package:flutter_login_ui/pages/profile_page.dart';
@@ -138,6 +139,29 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => WinnerPage()),
+                );
+              },
+            ),
+            Divider(
+              color: Theme.of(context).primaryColor,
+              height: 1,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.add_link_sharp,
+                size: 24,
+                color: Theme.of(context).accentColor,
+              ),
+              title: Text(
+                'Generate Lottery',
+                style: TextStyle(
+                    fontSize: 17, color: Theme.of(context).accentColor),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GenerateLotteryPage()),
                 );
               },
             ),
